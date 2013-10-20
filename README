@@ -1,0 +1,90 @@
+This was a programming assignment as part of a job interview.
+
+The goal is to handle a simple package dependency manager, perhaps similar to Bundler.  Dependencies are maintained, installed as needed, and removed when no longer needed unless those same packages were installed explicitly
+
+Commands:
+
+DEPEND parent child1 [child2...]
+  parent depends on children
+INSTALL package
+  installs the given package and those on which it depends
+REMOVE package
+  removes the given package and those on which it depends, unless they are required by other packages or were installed explicitly
+LIST
+  lists installed packages
+END
+  ends execution and exits
+
+Example Input
+DEPEND   ALFA BRAVO CHARLIE
+DEPEND BRAVO CHARLIE
+DEPEND DELTA BRAVO CHARLIE
+DEPEND  ECHO   BRAVO  FOXTROT
+INSTALL CHARLIE
+INSTALL ALFA
+INSTALL GOLF
+REMOVE CHARLIE
+INSTALL ECHO
+INSTALL DELTA
+LIST
+REMOVE ALFA
+REMOVE CHARLIE
+REMOVE DELTA
+REMOVE CHARLIE
+INSTALL CHARLIE
+REMOVE BRAVO
+REMOVE ECHO
+REMOVE BRAVO
+LIST
+END
+
+
+Output for the Example Output
+DEPEND   ALFA BRAVO CHARLIE
+DEPEND BRAVO CHARLIE
+DEPEND DELTA BRAVO CHARLIE
+DEPEND  ECHO   BRAVO  FOXTROT
+INSTALL CHARLIE
+  Installing CHARLIE
+INSTALL ALFA
+  Installing BRAVO
+  Installing ALFA
+INSTALL GOLF
+  Installing GOLF
+REMOVE CHARLIE
+  CHARLIE is still needed.
+INSTALL ECHO
+  Installing FOXTROT
+  Installing ECHO
+INSTALL DELTA
+  Installing DELTA
+LIST
+  FOXTROT
+  ECHO
+  DELTA
+  CHARLIE
+  GOLF
+  BRAVO
+  ALFA
+REMOVE ALFA
+  Removing ALFA
+REMOVE CHARLIE
+  CHARLIE is still needed.
+REMOVE DELTA
+  Removing DELTA
+REMOVE CHARLIE
+  CHARLIE is still needed.
+INSTALL CHARLIE
+  CHARLIE is already installed.
+REMOVE BRAVO
+  BRAVO is still needed.
+REMOVE ECHO
+  Removing ECHO
+  Removing FOXTROT
+  Removing BRAVO
+REMOVE BRAVO
+  BRAVO is not installed.
+LIST
+  CHARLIE
+  GOLF
+END
